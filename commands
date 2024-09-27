@@ -1,0 +1,69 @@
+# Legend
+# W - works from windows temrinal
+# L - works for wsl
+# ADMIN - TERMINAL SHOULD BE RUN AS ADMINITSTRATOR
+
+# Docker
+# To delete all containers including its volumes use -W
+    docker rm -vf $(docker ps -aq)
+# To delete all the images -W
+    docker rmi -f $(docker images -aq)
+# To delete - all stopped containers
+# - all networks not used by at least one container
+# - all dangling images
+# - all dangling build cache
+    docker system prune 
+# This command will build the Docker images for all services listed in the docker-compose.yml file, including the MySQL database, the React-Redux frontend, and the NestJS backend.
+# You should use this command whenever you make changes to the Dockerfiles or to the dependencies of the services, as it will rebuild the Docker images with the latest changes.
+    docker-compose build
+# This command will start the Docker containers for all services listed in the docker-compose.yml file, including the MySQL database, the React-Redux frontend, and the NestJS backend.
+# You should use this command to start the containers for the first time or whenever you make changes to the docker-compose.yml file.
+    docker-compose up
+# Stop the Docker containers:
+    docker-compose down
+# If you have separate Dockerfiles for the client and API folders, you can use the docker build command to build the Docker images for those services individually- client, api is the name from docker-compose file
+    docker build -t client ./client
+    docker build -t api ./api
+
+
+# Windows commands
+# Ports usage - A W
+netstat -ano | findstr :<PORT>
+# Kill port usage from PIN (previos command) - A W
+taskkill /PID <PID> /F
+
+# Create a redux toolkit app && NestJS project
+npx create-react-app client --template redux-typescript
+nest new api
+
+# Run Makefile file
+make local
+
+# After running the project using 'make local' cammand, you can check the status of your Docker  containers buy running 
+docker container ls 
+# or simply 
+docker ps
+# start/stop docker
+sudo service docker start
+sudo service docker down
+# TO USE process.env in nestjs - this project wont work without it
+docker-compose --env-file .env up
+docker-compose --env-file .env build
+
+# log of container 
+docker logs exemplary-began_back_1
+
+# force stop wsl
+wsl --list --verbose
+wsl --shutdown
+
+
+# DEPLOYMENT
+DATABASE: https://freedb.tech/dashboard/index.php
+BACKEND: RAILWAY
+    url: not public
+
+FRONTEND: VERCEL
+    url: not public
+
+
